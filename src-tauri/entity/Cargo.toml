@@ -1,0 +1,16 @@
+[package]
+name = "entity"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+name = "entity"
+path = "src/lib.rs"
+
+[dependencies]
+# serde 是一个Rust的序列化和反序列化库
+serde = { version = "1", features = ["derive"] }
+
+sea-orm = "1.1.7"
+

@@ -1,0 +1,24 @@
+[package]
+name = "info"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2024"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+dotenv = "0.15.0" # 读取.env文件
+tokio = {version = "1.44.1", features = ["full"] }
+tauri = { version = "2", features = [] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri-plugin-opener = "2"
+service= { path = "./service" } # 导入service模块
+entity= { path ="./entity" }  # 导入entity模块
+
+
+[workspace]
+# 项目的成员
+members = [".", "service", "entity"]
