@@ -1,9 +1,6 @@
 name: 打包tauri
 on:
-  push:
-    branches:
-      - release
-
+  push
 jobs:
   build:
     runs-on: windows-latest
