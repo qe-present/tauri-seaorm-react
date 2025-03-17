@@ -14,6 +14,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
               node-version: '23'
+      - name: 安装pnpm
+        run: npm i -g pnpm
+      - name: 安装依赖
+        run: pnpm install
+
       - name: 安装 Rust
         uses: dtolnay/rust-toolchain@stable
 
