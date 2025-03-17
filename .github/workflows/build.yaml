@@ -1,6 +1,5 @@
 name: 打包tauri
 on:
-  workflows:
   push:
     branches:
       - release
