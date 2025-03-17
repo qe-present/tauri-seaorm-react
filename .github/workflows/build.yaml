@@ -1,8 +1,9 @@
 name: 打包tauri
 on:
+  workflows:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - release
 
 jobs:
   build:
@@ -10,12 +11,15 @@ jobs:
     steps:
       - name: 读取仓库
         uses: actions/checkout@v4
+
       - name: 设置node
         uses: actions/setup-node@v4
         with:
-              node-version: '23'
+          node-version: '20' # 建议使用稳定的 LTS 版本
+
       - name: 安装pnpm
         run: npm i -g pnpm
+
       - name: 安装依赖
         run: pnpm install
 
@@ -27,13 +31,15 @@ jobs:
         with:
           workspaces: './src-tauri -> target'
 
+
+
       - name: 打包项目
         uses: tauri-apps/tauri-action@v0.5.19
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
-          releaseName: 'TTVVL v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
+          tagName: ${{ github.ref_name }}
+          releaseName: 'TSR v__VERSION__'
           releaseBody: 'See the assets to download and install this version'
           releaseDraft: false
           prerelease: false
