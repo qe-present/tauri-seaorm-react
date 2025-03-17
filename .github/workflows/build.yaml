@@ -5,30 +5,31 @@ on:
       - "v*.*.*"
 
 jobs:
-  runs-on: windows-latest
-  steps:
-    - name: 读取仓库
-      uses: actions/checkout@v4
-    - name: 设置node
-      uses: actions/setup-node@v4
-      with:
-            node-version: '23'
-    - name: 安装 Rust
-      uses: dtolnay/rust-toolchain@stable
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: 读取仓库
+        uses: actions/checkout@v4
+      - name: 设置node
+        uses: actions/setup-node@v4
+        with:
+              node-version: '23'
+      - name: 安装 Rust
+        uses: dtolnay/rust-toolchain@stable
 
-    - name: 缓存 Rust
-      uses: swatinem/rust-cache@v2
-      with:
-        workspaces: './src-tauri -> target'
+      - name: 缓存 Rust
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
 
-    - name: 打包项目
-      uses: tauri-apps/tauri-action@v0.5.19
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
-        releaseName: 'TTVVL v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
-        releaseBody: 'See the assets to download and install this version'
-        releaseDraft: false
-        prerelease: false
-        publish: true
+      - name: 打包项目
+        uses: tauri-apps/tauri-action@v0.5.19
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
+          releaseName: 'TTVVL v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
+          releaseBody: 'See the assets to download and install this version'
+          releaseDraft: false
+          prerelease: false
+          publish: true
